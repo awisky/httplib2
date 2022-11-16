@@ -147,11 +147,13 @@ def _build_ssl_context(
     maximum_version=None,
     minimum_version=None,
     key_password=None,
+    check_hostname=False
 ):
     if not hasattr(ssl, "SSLContext"):
         raise RuntimeError("httplib2 requires Python 3.2+ for ssl.SSLContext")
 
     context = ssl.SSLContext(DEFAULT_TLS_VERSION)
+    context.check_hostname = check_hostname
     context.verify_mode = ssl.CERT_NONE if disable_ssl_certificate_validation else ssl.CERT_REQUIRED
 
     # SSLContext.maximum_version and SSLContext.minimum_version are python 3.7+.
