@@ -155,7 +155,8 @@ def _build_ssl_context(
     context = ssl.SSLContext(DEFAULT_TLS_VERSION)
     context.check_hostname = check_hostname
     context.verify_mode = ssl.CERT_NONE if disable_ssl_certificate_validation else ssl.CERT_REQUIRED
-
+    context.set_ciphers('HIGH:!DH:!aNULL')
+    context.set_ciphers('DEFAULT@SECLEVEL=1')
     # SSLContext.maximum_version and SSLContext.minimum_version are python 3.7+.
     # source: https://docs.python.org/3/library/ssl.html#ssl.SSLContext.maximum_version
     if maximum_version is not None:
